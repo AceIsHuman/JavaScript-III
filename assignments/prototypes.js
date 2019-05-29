@@ -132,3 +132,56 @@ Humanoid.prototype.greet = function(){ return `${this.name} offers a greeting in
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+function Villain(obj) {
+  Humanoid.call(this, obj);
+}
+Villain.prototype = Object.create(Humanoid.prototype);
+Villain.prototype.attack = function(target) {
+  target.healthPoints = target.healthPoints - 2;
+  return `${this.name} attacked ${target.name} for 2 damage.\n ${target.name} has ${target.healthPoints} HP remaining.`;
+
+}
+Villain.prototype.attackSpecial = function(target) {
+  target.healthPoints = target.healthPoints - 3;
+  return `${this.name} attacked ${target.name} for 3 damage.\n ${target.name} has ${target.healthPoints} HP remaining.`;
+}
+
+function Hero(obj) {
+  Humanoid.call(this, obj);
+}
+Hero.prototype = Object.create(Villain.prototype);
+
+const bob = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 3,
+    width: 2,
+    height: 2,
+  },
+  healthPoints: 25,
+  name: 'Super Bob',
+  team: 'Supreme Supremes',
+  weapons: [
+    'Dez',
+    'Troy',
+  ],
+  language: 'Common Tongue',
+});
+
+const ego = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 3,
+    width: 2,
+    height: 2,
+  },
+  healthPoints: 25,
+  name: 'Ego Mantic',
+  team: 'League of Villainy',
+  weapons: [
+    'Big Laser',
+    'Rocket Shark',
+  ],
+  language: 'Evil',
+});
